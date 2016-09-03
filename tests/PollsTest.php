@@ -47,6 +47,14 @@ class PollsTest extends TestCase
         $this->assertRedirectedToRoute('admin.polls.index');
     }
 
+    public function testEdit()
+    {
+        /** @var PollQuestion $pollQuestion */
+        $pollQuestion = factory(PollQuestion::class)->create();
+
+        $this->visit(route('admin.polls.edit', $pollQuestion));
+    }
+
     public function testUpdate()
     {
         /** @var PollQuestion $question */

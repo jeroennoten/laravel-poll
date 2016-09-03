@@ -10,7 +10,7 @@
     <label class="control-label">Antwoorden</label>
     <div id="answerFields">
         @if($poll->exists)
-            @foreach($poll->answers as $answer)
+            @foreach($poll->pollAnswers as $answer)
                 <p style="display: flex;">
                     <input type="text"
                            name="answers[{{ $answer->id }}]"
