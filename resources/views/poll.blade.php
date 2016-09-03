@@ -17,6 +17,7 @@
                     <button type="submit"
                             formaction="{{ route('polls.answers.votes.store', $answer) }}"
                             class="btn btn-default btn-block"
+                            style="white-space: normal;"
                     >{{ $answer->text }}</button>
                 </p>
             @endforeach
