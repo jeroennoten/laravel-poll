@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PollAnswer extends Model
 {
-    protected $fillable = ['text'];
+    protected $fillable = ['text', 'votes'];
 
     public function pollQuestion()
     {

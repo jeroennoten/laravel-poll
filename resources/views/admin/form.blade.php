@@ -11,42 +11,43 @@
     <div id="answerFields">
         @if($poll->exists)
             @foreach($poll->pollAnswers as $answer)
-                <p style="display: flex;">
+                <div style="display: flex; margin-bottom: 10px; align-items: center;">
+                    <button type="button"
+                            class="btn btn-xs btn-danger"
+                            onclick="deleteAnswer(this.parentNode)"
+                            style="margin-right: 10px;"
+                    ><i class="fa fa-trash"></i></button>
                     <input type="text"
                            name="answers[{{ $answer->id }}]"
                            value="{{ $answer->text }}"
                            class="form-control"
                     >
-                    <button type="button"
-                            class="btn btn-xs btn-danger"
-                            onclick="deleteAnswer(this.parentNode)"
-                            style="margin-left: 10px;"
-                    ><i class="fa fa-trash"></i></button>
-                </p>
+                    <div style="width: 100px; margin-left: 10px;">{{ $answer->votes }} {{ $answer->votes == 1 ? 'stem' : 'stemmen' }}</div>
+                </div>
             @endforeach
         @else
-            <p style="display: flex;">
+            <div style="display: flex; margin-bottom: 10px; align-items: center;">
+                <button type="button"
+                        class="btn btn-xs btn-danger"
+                        onclick="deleteAnswer(this.parentNode)"
+                        style="margin-right: 10px;"
+                ><i class="fa fa-trash"></i></button>
                 <input type="text"
                        name="new_answers[]"
                        class="form-control"
                 >
+            </div>
+            <div style="display: flex; margin-bottom: 10px; align-items: center;">
                 <button type="button"
                         class="btn btn-xs btn-danger"
                         onclick="deleteAnswer(this.parentNode)"
-                        style="margin-left: 10px;"
+                        style="margin-right: 10px;"
                 ><i class="fa fa-trash"></i></button>
-            </p>
-            <p style="display: flex;">
                 <input type="text"
                        name="new_answers[]"
                        class="form-control"
                 >
-                <button type="button"
-                        class="btn btn-xs btn-danger"
-                        onclick="deleteAnswer(this.parentNode)"
-                        style="margin-left: 10px;"
-                ><i class="fa fa-trash"></i></button>
-            </p>
+            </div>
         @endif
     </div>
     <a href="#" onclick="addAnswer(event);"><i class="fa fa-plus"></i> Nog een antwoord</a>
@@ -55,7 +56,7 @@
 <script>
     function addAnswer(event) {
         event.preventDefault();
-        document.getElementById('answerFields').insertAdjacentHTML('beforeend', '<p style="display: flex;"><input type="text" name="new_answers[]" class="form-control"><button type="button" class="btn btn-xs btn-danger" onclick="deleteAnswer(this.parentNode)" style="margin-left: 10px;"><i class="fa fa-trash"></i></button></p>');
+        document.getElementById('answerFields').insertAdjacentHTML('beforeend', '<div style="display: flex; margin-bottom: 10px; align-items: center;"><button type="button" class="btn btn-xs btn-danger" onclick="deleteAnswer(this.parentNode)" style="margin-right: 10px;"><i class="fa fa-trash"></i></button><input type="text" name="new_answers[]" class="form-control"></div>');
     }
 
     function deleteAnswer(field) {
