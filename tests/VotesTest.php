@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Encryption\Encrypter;
 use JeroenNoten\LaravelPoll\Models\PollAnswer;
 
 class VotesTest extends TestCase
@@ -35,24 +36,31 @@ class VotesTest extends TestCase
     {
         $this->call('POST', route('polls.answers.votes.store', $this->answer));
 
-        $this->seePlainCookie('poll', $this->answer->pollQuestion->id);
+        $this->seeCookie('poll', $this->answer->pollQuestion->id);
     }
 
     public function testStoreAppendsToCookie()
     {
         $this->call('POST', route('polls.answers.votes.store', $this->answer), [], [
-            'poll' => '3,2',
+            'poll' => $this->encrypt('3,2'),
         ]);
 
-        $this->seePlainCookie('poll', "3,2,{$this->answer->pollQuestion->id}");
+        $this->seeCookie('poll', "3,2,{$this->answer->pollQuestion->id}");
     }
 
     public function testStoreIgnoresWithCookie()
     {
         $this->call('POST', route('polls.answers.votes.store', $this->answer), [], [
-            'poll' => "3,{$this->answer->pollQuestion->id},7",
+            'poll' => $this->encrypt("3,{$this->answer->pollQuestion->id},7"),
         ]);
 
         $this->seeInDatabase('poll_answers', ['id' => $this->answer->id, 'votes' => 2]);
+    }
+
+    private function encrypt($value)
+    {
+        $encrypter = new Encrypter(base64_decode(substr(config('app.key'), 7)), config('app.cipher'));
+
+        return $encrypter->encrypt($value);
     }
 }

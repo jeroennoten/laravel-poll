@@ -6,6 +6,6 @@
         </testsuite>
     </testsuites>
     <php>
-        <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
+        <env name="APP_KEY" value="base64:Yrv2plT/GMYJ+YEVG4UKzbMyh9CpipiNWJD7dQsHlcc="/>
     </php>
 </phpunit>
